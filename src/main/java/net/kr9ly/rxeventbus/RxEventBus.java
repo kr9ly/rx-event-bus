@@ -69,7 +69,7 @@ public class RxEventBus {
     }
 
     public <T> Observable<RxEvent<T>> listener(final Class<T> clazz) {
-        return rootObservable.filter(new Func1<RxEvent<?>, Boolean>() {
+        return rootObservable.onBackpressureBuffer().filter(new Func1<RxEvent<?>, Boolean>() {
             @Override
             public Boolean call(RxEvent<?> event) {
                 return clazz.isInstance(event.getItem());
